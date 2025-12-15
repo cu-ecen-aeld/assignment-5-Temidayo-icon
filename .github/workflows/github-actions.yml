@@ -5,6 +5,9 @@ on:
             - '*'
         branches:
             - '*'
+            
+
+
 jobs:
     full-test:
         container: cuaesd/aesd-autotest:24-assignment4-buildroot
@@ -17,6 +20,20 @@ jobs:
           - uses: webfactory/ssh-agent@v0.5.3
             with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          - name: Install build dependencies
+            run: |
+             apt-get update
+             apt-get install -y \
+             libssl-dev \
+             pkg-config \
+             build-essential \
+             bc \
+             bison \
+             flex \
+             libncurses5-dev \
+             libncursesw5-dev
+
+                
           - name: Run full test
             env:
               GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
