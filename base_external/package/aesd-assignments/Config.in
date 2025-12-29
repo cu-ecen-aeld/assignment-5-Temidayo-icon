@@ -1,6 +1,10 @@
-
 config BR2_PACKAGE_AESD_ASSIGNMENTS
 	bool "aesd-assignments"
+	depends on BR2_PACKAGE_HOST_GIT
 	help
-	  Includes the writer executable, finder.sh and tester.sh in the kernel image.
-	  Used to understand buildroot external trees and package builds.
+	  AESD assignments package including:
+	  - finder-app utilities (writer, finder.sh, finder-test.sh)
+	  - aesdsocket TCP server (port 9000 with daemon startup script)
+	  
+	  This package provides file manipulation utilities and a socket-based
+	  server application for the AESD course assignments.
