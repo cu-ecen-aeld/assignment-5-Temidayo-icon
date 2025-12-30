@@ -17,6 +17,11 @@ jobs:
           - uses: actions/checkout@v2
           - name: Checkout submodules
             run: git submodule update --init --recursive
+          - name: Fix GitHub SSH host key
+            run: |
+              # Remove old GitHub host key and add the correct one
+              ssh-keygen -f /root/.ssh/known_hosts -R github.com 2>/dev/null || true
+              ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
           - uses: webfactory/ssh-agent@v0.5.3
             with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
