@@ -20,6 +20,15 @@ jobs:
           - uses: webfactory/ssh-agent@v0.5.3
             with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+                    - name: Rebuild without host checking
+            env:
+              FORCE_UNSAFE_CONFIGURE: 1
+              GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+            run: |
+              cd assignment-5-Temidayo-icon/assignment-4-Temidayo-icon/buildroot
+              make aesd-assignments-dirclean
+              make aesd-assignments
+              make
           - name: Clean up port 9000 before test
             run: |
               # Kill any existing aesdsocket processes
